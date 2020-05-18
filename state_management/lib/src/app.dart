@@ -1,38 +1,47 @@
 import 'package:flutter/material.dart';
+import './question.dart';
 
 class MyApp extends StatefulWidget {
   @override
-  MyAppState createState() {
-    return MyAppState();
+  State<StatefulWidget> createState() {
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  int times = 0;
+class _MyAppState extends State<MyApp> {
+  int _index = 0;
+  // code to go to next question
+  void _quizAnswer() {
+    setState(() {
+      _index++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var quizQuestions = [
+      "What is your name?",
+      "What do you do?",
+    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Flutter"),
+          title: Text("Flutter Trivia"),
         ),
         body: Column(
           children: [
-            Center(
-              child: Text("Like my picture $times."),
+            Question(
+              quizQuestions[_index],
+            ),
+            RaisedButton(
+              onPressed: _quizAnswer,
+              child: Text("True"),
+            ),
+            RaisedButton(
+              child: Text("False"),
+              onPressed: _quizAnswer,
             ),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              times++;
-            });
-          },
-          child: Icon(
-            Icons.favorite,
-          ),
-          backgroundColor: Colors.pink,
         ),
       ),
     );
